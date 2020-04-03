@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+Task Master
+{% endblock  %}
+
+{% block body %}
+<div class="content">
+{% for comment in comments %}
+    <p>{{comment[1].content}}</p>
+    <p>{{comment[0].name}}</p>
+    <p>{{comment[1].date_created}}</p>
+{% endfor %}
+</div>
+{% endblock body %}

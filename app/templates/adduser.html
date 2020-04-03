@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block head %}
+Adding user
+{% endblock  %}
+
+{% block body %}
+    {% if message %}
+        <p>{{message}}</p>
+    {% endif %}
+
+    {% for  message in  get_flashed_messages() %}
+        <p>{{message}}</p>
+    {% endfor %}
+
+    <form action="" method="post">
+	{{ form.csrf_token }}
+	<p>
+        {{ form.name.label() }}
+        {{ form.name() }}
+        {% if form.name.errors %}
+        {% for error in form.name.errors %}
+            {{ error }}
+        {% endfor %}
+        {% endif %}
+	</p>
+    <p>
+        {{ form.surname.label() }}
+        {{ form.surname() }}
+        {% if form.surname.errors %}
+        {% for error in form.surname.errors %}
+            {{ error }}
+        {% endfor %}
+        {% endif %}
+	</p>
+	<p>
+        {{ form.email.label() }}
+        {{ form.email() }}
+        {% if form.email.errors %}
+        {% for error in form.email.errors %}
+            {{ error }}
+        {% endfor %}
+        {% endif %}
+	</p>
+    <p>
+        {{ form.gender.label() }}
+        {{ form.gender() }}
+        {% if form.gender.errors %}
+        {% for error in form.gender.errors %}
+            {{ error }}
+        {% endfor %}
+        {% endif %}
+	</p>
+    <p>
+        {{ form.birthday.label() }}
+        {{ form.birthday() }}
+        {% if form.birthday.errors %}
+        {% for error in form.birthday.errors %}
+            {{ error }}
+        {% endfor %}
+        {% endif %}
+	</p>
+	<p>
+	    {{ form.remember.label() }}
+	    {{ form.remember() }}
+	</p>
+	<p>
+	    {{ form.submit() }}
+	</p>
+    </form>
+{% endblock %}

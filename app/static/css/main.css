@@ -1,0 +1,10 @@
+body{
+    background-color: burlywood;
+    padding: 50px;
+}
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

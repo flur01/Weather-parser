@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+Adding feedback
+{% endblock  %}
+
+{% block body %}
+    {% if message %}
+        <p>{{message}}</p>
+    {% endif %}
+
+    {% for  message in  get_flashed_messages() %}
+        <p>{{message}}</p>
+    {% endfor %}
+
+    <form action="" method="post">
+	{{ form.csrf_token }}
+	<p>
+        {{ form.name.label() }}
+        {{ form.name() }}
+        {% if form.name.errors %}
+        {% for error in form.name.errors %}
+            {{ error }}
+        {% endfor %}
+        {% endif %}
+	</p>
+	<p>
+        {{ form.email.label() }}
+        {{ form.email() }}
+        {% if form.email.errors %}
+        {% for error in form.email.errors %}
+            {{ error }}
+        {% endfor %}
+        {% endif %}
+	</p>
+    <p>
+        {{ form.feedback.label() }}
+        {{ form.feedback() }}
+        {% if form.feedback.errors %}
+        {% for error in form.feedback.errors %}
+            {{ error }}
+        {% endfor %}
+        {% endif %}
+	</p>
+	<p>
+	    {{ form.submit() }}
+	</p>
+    </form>
+{% endblock %}
