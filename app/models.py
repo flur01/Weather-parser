@@ -1,5 +1,5 @@
 from app import db, login_manager
-from datetime import datetime
+from datetime import date
 from flask_login import LoginManager, UserMixin, login_required
 
 
@@ -9,7 +9,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.now())
+    date_created = db.Column(db.DateTime, default=date.today())
 
     def __repr__(self):
         return '<Comment %r>' % self.id

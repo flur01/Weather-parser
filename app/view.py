@@ -1,17 +1,18 @@
 from app import app, db
-from flask import request
-from flask import redirect
-from flask import render_template
-from flask import flash
-from datetime import datetime
-from flask import url_for
+from flask import request, redirect, render_template, flash, url_for, Response
+import requests
+from datetime import datetime, date
 from werkzeug.datastructures import MultiDict
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from models import *
 from forms import *
 import wtforms
+import json
+
+
 
 login_manager.login_view = 'login'
+
 
 @app.route('/login/', methods=['POST',  'GET'])
 def login():
@@ -25,7 +26,7 @@ def login():
 
             if user and user_email :
                 login_user(user)
-                return redirect('/comments/')
+                return redirect('/')
 
             flash("Invalid name/email.")
             return render_template('login.html', form=form)
@@ -57,7 +58,7 @@ def add_user():
         else:
             new_gender = bool(int(form.gender.data))
 
-        if new_birthday == datetime.now():
+        if new_birthday == date.today():
             new_birthday = None
 
         new_user = User(name=new_name, surname=new_surname, email=new_email, gender=new_gender, birthday=new_birthday)
@@ -79,9 +80,8 @@ def feedback():
     form = AddFeedback()
     if request.method == 'POST' and form.validate_on_submit(): 
         try:
-            user = db.session.query(User).filter(User.email == form.email.data).first()
-            user_name = db.session.query(User).filter(user.name == form.name.data).first()
-            if user and user_name:
+            user = db.session.query(User).filter(current_user.email == form.email.data and current_user.name == form.name.data).first()
+            if user:
                 user_id = user.id
                 content = form.feedback.data
                 new_comment = Comment(user_id=user_id,content=content)
@@ -95,13 +95,13 @@ def feedback():
         except:
             flash("Invalid name/email")
             return render_template('addfeedback.html', form=form)
-    flash("Eroor with adding new comment")
+    flash("Eroor")
     return render_template('addfeedback.html', form=form)
 
 
 @app.route('/comments/',methods=['POST', 'GET'])
 @login_required
-def index():
+def comment():
     comments = db.session.query(User, Comment).outerjoin(Comment, User.id == Comment.user_id).all()
     return render_template('comments.html', comments=comments)
    
@@ -117,9 +117,29 @@ def delete(id):
         except:
             return flash("Delete error")
     else:
-        flash("Delete error")
-
+        flash("It is not your comment")
         return redirect('/comments/')
-    
+
+@app.route('/user/')
+@login_required
+def user_info():
+    return render_template('user.html', user=current_user)
+
+
+@app.route('/',methods=['GET'])
+@login_required
+def index():
+    params ={
+        "spider_name": 'test',
+        'start_requests': True,
+    }
+    response = requests.get('http://localhost:9080/crawl.json',params)
+    data = json.loads(response.text)
+    print(data['items'][0]['Temperature'])
+    data=[data['items'][0]['Temperature'],data['items'][0]['Sky']]
+    #data=['1','2','3']
+    return render_template('index.html', 
+    data=data, l_data=len(data[0]))
+
 
 

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField,  BooleanField, PasswordField, SelectField, TextAreaField 
 from wtforms.validators import DataRequired, Email
-from datetime import datetime
+from datetime import date
 from wtforms.fields import *
 from wtforms import widgets, Form as _Form
 from wtforms.fields.html5 import DateField
@@ -17,7 +17,7 @@ class AddForm(FlaskForm):
     surname =  StringField("Surname", validators=[DataRequired()])
     email = StringField("Email", validators=[Email(),DataRequired()])
     gender = SelectField('Genfer', choices=[('u', 'unset'),('1', 'male'), ('0', 'female')])
-    birthday = DateField('Birthday',format='%Y-%m-%d', default=datetime.now() )
+    birthday = DateField('Birthday',format='%Y-%m-%d', default=date.today() )
     submit = SubmitField()
 
 class AddFeedback(FlaskForm):
