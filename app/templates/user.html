@@ -5,15 +5,51 @@
 {% endblock  %}
 
 {% block body %}
-<div class="content">
+<div class="container ">
 
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th scope="row">Имя</th>
+                <td class="">{{user.name}}</td>                     
+            </tr>
+            <tr>
+                <th scope="row">Фамилия</th>
+                <td class="">{{user.surname}}</td>                     
+            </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td class="">{{user.email}}</td>                     
+            </tr>
 
-<p>{{user.name}}</p>
-<p>{{user.surname}}</p>
-<p>{{user.email}}</p>
-<p>{{user.gender}}</p>
-<p>{{user.birthday}}</p>
+            <tr>
+                
+                {% if  user.gender is defined and user.gender is sameas true %}
+                <th scope="row">Пол</th>
+                <td class="">Мужской</td>
+                {% endif %}
 
+                {% if  user.gender is defined and user.gender is sameas false %}
+                <th scope="row">Пол</th>
+                <td class="">Женский</td>
+                {% endif %}                  
+            </tr>
+            
+            <tr>
+                {% if  user.birthday is defined and user.birthday is not sameas None %}
+                    <th scope="row">День рождения</th>
+                    <td class="">{{user.birthday}}</td>
+                {% endif %}                    
+            </tr>
+
+        
+            
+       
+        </tbody>
+            
+        </div>
+    </table>
 
 </div>
 {% endblock body %}

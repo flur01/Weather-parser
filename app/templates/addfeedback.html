@@ -5,6 +5,7 @@ Adding feedback
 {% endblock  %}
 
 {% block body %}
+<div class="container">
     {% if message %}
         <p>{{message}}</p>
     {% endif %}
@@ -46,4 +47,5 @@ Adding feedback
 	    {{ form.submit() }}
 	</p>
     </form>
+</div>
 {% endblock %}

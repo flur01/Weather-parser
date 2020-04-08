@@ -90,12 +90,12 @@ def feedback():
                     db.session.commit()
                     return redirect('/comments/')
                 except:
-                    flash("Eroor with adding new comment")
+                    flash("Error with adding new comment")
                     return render_template('addfeedback.html', form=form)
         except:
             flash("Invalid name/email")
             return render_template('addfeedback.html', form=form)
-    flash("Eroor")
+    flash("Error")
     return render_template('addfeedback.html', form=form)
 
 
@@ -130,16 +130,23 @@ def user_info():
 @login_required
 def index():
     params ={
-        "spider_name": 'test',
+        'spider_name': 'test',
         'start_requests': True,
     }
     response = requests.get('http://localhost:9080/crawl.json',params)
     data = json.loads(response.text)
-    print(data['items'][0]['Temperature'])
-    data=[data['items'][0]['Temperature'],data['items'][0]['Sky']]
-    #data=['1','2','3']
+    data=[data['items'][0]['Temperature'],
+    data['items'][0]['Sky'],
+    data['items'][0]['Wind'],
+    data['items'][0]['Rainfall'],
+    data['items'][0]['Sky_middle'],
+    data['items'][0]['Date']]
+
+    time = [i for i in range(0,22,3) ]
+
     return render_template('index.html', 
-    data=data, l_data=len(data[0]))
+    data=data, l_data=len(data[0][2]),#[2]
+    time=time)
 
 
 

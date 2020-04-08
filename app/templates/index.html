@@ -5,9 +5,62 @@ Weather
 {% endblock  %}
 
 {% block body %}
-    {% for i in range(l_data) %}
-        <a>{{data[1][i]}}</a>
-        <a>{{data[0][i][0]}}</a>
-        <br>
-    {% endfor %}
+<div class="container">
+    
+    <div class="my_row row ">
+        <div class="col">
+            <a>{{data[5][0]}}</a>
+        </div>
+        <div class="col">
+            <a>от {{data[0][0][0]}} до {{data[0][0][1]}}</a>
+        </div>
+        
+        <div class="col">
+            <a>{{data[4][0]}}</a>
+        </div>
+
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Время:</th>
+                <th scope="col">Температура:</th>
+                <th scope="col">Небо:</th>
+                <th scope="col">Скорость ветра (м/с):</th>
+                {% if data[3][2] is defined %}
+                    <th scope="col">Осадки (мм):</th>
+                {% endif %}
+            </tr>
+        </thead>
+
+        <tbody>
+            
+            <tr>
+                {% for i in range(l_data) %}
+                <td class="">{{time[i]}}<sup>00</sup></td>
+                <td class="">{{data[0][2][i]}}</td><![2]>
+                <td class="">{{data[1][0][i]}}</td>
+                <td class="">{{data[2][i]}}</td>
+                {% if data[3][2] is defined %}
+                    <td class="">{{data[3][i]}}</td>
+                {% endif %}
+            </tr>        
+            {% endfor %}
+        </tbody>
+            
+        </div>
+        {% if  data[3][2] is not defined %}
+        <div class="row my_row">
+            <div class="col">
+                <p>Осадки</p>
+            </div>
+            <div class="col">
+                <p>{{data[3][0]}}</p>
+            </div>
+        </div>
+        {% endif %}
+    </table>
+        
+</div>
+
 {% endblock %}

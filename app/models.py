@@ -9,7 +9,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
-    date_created = db.Column(db.DateTime, default=date.today())
+    date_created = db.Column(db.Date, default=date.today())
 
     def __repr__(self):
         return '<Comment %r>' % self.id
@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     surname =  db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     gender = db.Column(db.BOOLEAN, nullable=True)
-    birthday = db.Column(db.DateTime, nullable=True)
+    birthday = db.Column(db.Date, nullable=True)
     
 
     def check_email(self,  email_user):

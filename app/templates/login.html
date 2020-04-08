@@ -5,6 +5,7 @@ Registration
 {% endblock  %}
 
 {% block body %}
+<div class="container">
     {% if message %}
         <p>{{message}}</p>
     {% endif %}
@@ -37,5 +38,6 @@ Registration
 	    {{ form.submit() }}
 	</p>
     </form>
-<a href="/adduser/">Create new acount</a>
+    <a href="/adduser/">Create new acount</a>
+</div>
 {% endblock %}
