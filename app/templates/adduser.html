@@ -5,59 +5,69 @@ Adding user
 {% endblock  %}
 
 {% block body %}
-<div class="container">
-    {% if message %}
-        <p>{{message}}</p>
-    {% endif %}
 
-    {% for  message in  get_flashed_messages() %}
-        <p>{{message}}</p>
-    {% endfor %}
+{% for  message in  get_flashed_messages() %}
+    <div class="alert alert-danger text-center" role="alert">
+         <h4>{{message}}</h4>
+    </div>
+{% endfor %}
 
-    <form action="" method="post">
+<div class="container d-flex justify-content-center ">
+
+    <form class="bg-light p-3 rounded" action="" method="post">
 	{{ form.csrf_token }}
-	<p>
+    <p class="my_input">
         {{ form.name.label() }}
         {{ form.name() }}
         {% if form.name.errors %}
         {% for error in form.name.errors %}
+        <div class="alert alert-danger" role="alert">
             {{ error }}
+        </div>
         {% endfor %}
         {% endif %}
 	</p>
-    <p>
+    <p class="my_input">
         {{ form.surname.label() }}
         {{ form.surname() }}
         {% if form.surname.errors %}
         {% for error in form.surname.errors %}
+        <div class="alert alert-danger" role="alert">
             {{ error }}
+        </div>
         {% endfor %}
         {% endif %}
 	</p>
-	<p>
+	<p class="my_input">
         {{ form.email.label() }}
         {{ form.email() }}
         {% if form.email.errors %}
         {% for error in form.email.errors %}
+        <div class="alert alert-danger" role="alert">
             {{ error }}
+        </div>
         {% endfor %}
         {% endif %}
 	</p>
-    <p>
+    <p class="my_input">
         {{ form.gender.label() }}
         {{ form.gender() }}
         {% if form.gender.errors %}
         {% for error in form.gender.errors %}
+        <div class="alert alert-danger" role="alert">
             {{ error }}
+        </div>
         {% endfor %}
         {% endif %}
 	</p>
-    <p>
+    <p class="my_input">
         {{ form.birthday.label() }}
         {{ form.birthday() }}
         {% if form.birthday.errors %}
         {% for error in form.birthday.errors %}
+        <div class="alert alert-danger" role="alert">
             {{ error }}
+        </div>
         {% endfor %}
         {% endif %}
 	</p>

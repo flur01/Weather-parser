@@ -5,18 +5,17 @@ Adding feedback
 {% endblock  %}
 
 {% block body %}
-<div class="container">
-    {% if message %}
-        <p>{{message}}</p>
-    {% endif %}
+{% for  message in  get_flashed_messages() %}
+    <div class="alert alert-danger text-center" role="alert">
+         <h4>{{message}}</h4>
+    </div>
+{% endfor %}
+<div class="container d-flex justify-content-center">
 
-    {% for  message in  get_flashed_messages() %}
-        <p>{{message}}</p>
-    {% endfor %}
 
-    <form action="" method="post">
+    <form class="bg-light p-3 rounded" action="" method="post">
 	{{ form.csrf_token }}
-	<p>
+	<p class="my_input">
         {{ form.name.label() }}
         {{ form.name() }}
         {% if form.name.errors %}
@@ -25,16 +24,19 @@ Adding feedback
         {% endfor %}
         {% endif %}
 	</p>
-	<p>
+	<p class="my_input">
         {{ form.email.label() }}
         {{ form.email() }}
+
         {% if form.email.errors %}
         {% for error in form.email.errors %}
+        <div class="alert alert-danger" role="alert">
             {{ error }}
+        </div>
         {% endfor %}
         {% endif %}
 	</p>
-    <p>
+	<p class="my_input">
         {{ form.feedback.label() }}
         {{ form.feedback() }}
         {% if form.feedback.errors %}

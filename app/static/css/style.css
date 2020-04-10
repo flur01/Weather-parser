@@ -1,4 +1,30 @@
 .my_row{
     margin: 20px 0 !important;
-    font-size: 20px !important;
+    background-color: beige !important;
+    align-items: center !important;
+}
+
+.header{
+    margin-bottom: 20px !important;
+}
+
+p {
+    word-wrap: break-word !important;
+}
+
+.comment-text{
+    padding: 25px !important;
+    margin-bottom: 50px !important;
+}
+
+.my_input > input{
+    width: 100% !important;
+}
+
+.my_input > textarea{
+    width: 100% !important;
+}
+
+body{
+    background-image: url(../img/cloud.jpg) !important;
 }

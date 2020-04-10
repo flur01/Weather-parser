@@ -5,23 +5,29 @@ Comments
 {% endblock  %}
 
 {% block body %}
-<div class="container">
-    {% if message %}
-        <p>{{message}}</p>
-    {% endif %}
 
-    {% for  message in  get_flashed_messages() %}
-        <p>{{message}}</p>
-    {% endfor %}
-{% for comment in comments %}
-    {% if comment[1] %}
-        <p>{{comment[1].content}}</p>
-        <p>{{comment[0].name}}</p>
-        <p>{{comment[1].date_created}}</p>
-        <a href="/delete/{{comment[1].id}}">Delete</a>
-    {% endif %}
-
+{% for  message in  get_flashed_messages() %}
+    <div class="alert alert-danger text-center" role="alert">
+         <h4>{{message}}</h4>
+    </div>
 {% endfor %}
+<div class="container bg-light p-3 rounded">
+    {% if comments[0][1].content is not defined %}
+        <h4 class="text-center">Комментарии отсутствуют<h4>
+    {% endif %}
+
+    {% for comment in comments %}
+        {% if comment[1] %}
+            <h4>Имя: {{comment[0].name}}</h4>
+            <h4>Фамилия: {{comment[0].surname}}</h4>
+        
+            <div class=" comment-text border text-wrap">
+                <p class="text-left">{{comment[1].content}} </p>
+                <sub class="text-right">{{comment[1].date_created}}</sub>
+                <a class="float-right text-danger" href="/delete/{{comment[1].id}}">Delete</a>
+            </div>
+        {% endif %}
+    {% endfor %}
 
 </div>
 {% endblock body %}
